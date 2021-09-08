@@ -1,22 +1,8 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MusicJunkie Blog | <%= title %></title>
-</head>
+    <%- include('./partials/header.ejs') %> 
 <body>
-    <nav>
-        <div class="site-title">
-            <a href="/"><h1>MusicJunkie Blog</h1></a>
-            <p>MusicJunkie Blog Site</p>
-        </div>
-        <ul>
-            <li><a href="/">Blogs</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blogs/create">Create New Blog</a></li>
-        </ul>
-    </nav>
+    
+    <%- include('./partials/nav.ejs') %> 
 
     <div class="about content">
         <h2>About Us</h2>
@@ -24,5 +10,7 @@
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi animi reiciendis rem mollitia, eum odio ullam provident ut nulla, aperiam facere voluptatibus aliquid, non soluta eaque a consequatur. Consequatur, debitis.</p>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi animi reiciendis rem mollitia, eum odio ullam provident ut nulla, aperiam facere voluptatibus aliquid, non soluta eaque a consequatur. Consequatur, debitis.</p>
     </div>
+    
+    <%- include('./partials/footer.ejs') %> 
 </body>
 </html>
