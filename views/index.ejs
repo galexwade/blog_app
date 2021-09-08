@@ -3,13 +3,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Blog</title>
+    <title>MusicJunkie Blog | <%= title %></title>
 </head>
 <body>
     <nav>
         <div class="site-title">
-            <a href="/"><h1>Music Blog</h1></a>
-            <p>A Music Blog Site</p>
+            <a href="/"><h1>MusicJunkie Blog</h1></a>
+            <p>MusicJunkie Blog Site</p>
         </div>
         <ul>
             <li><a href="/">Blogs</a></li>
@@ -17,5 +17,20 @@
             <li><a href="/blogs/create">Create New Blog</a></li>
         </ul>
     </nav>
+
+    <div class="blogs content">
+        <h2>All Blogs</h2>
+
+        <% if(blogs.length > 0){ %>
+            <% blogs.forEach(element => { %>
+
+             <h3 class="title"><%= element.title %></h3>
+             <p class="snippet"><%= element.snippet %></p>
+
+            <% }) %>  
+        <% } else { %> 
+            <p>There are no blogs to display..</p>
+        <% } %> 
+    </div>
 </body>
 </html>
