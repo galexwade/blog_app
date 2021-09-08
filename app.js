@@ -1,8 +1,15 @@
 const express = require('express');
 const app = express();
+const logger = require('morgan');
 
 // Register view engine
 app.set('view engine', 'ejs');
+
+// Logger middleware
+app.use(logger('dev'));
+
+// Middleware & Static files
+app.use(express.static('public'));
 
 // Home page
 app.get('/', (req, res) => {
