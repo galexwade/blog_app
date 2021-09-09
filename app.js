@@ -1,6 +1,14 @@
 const express = require('express');
 const app = express();
 const logger = require('morgan');
+const mongoose = require('mongoose');
+const Blog = require('./models/blog')
+
+// Connect to mongodb
+const dbConfig = 'mongodb+srv://galexwade:Basketball25@nodeblog.r4b7n.mongodb.net/nodeblog?retryWrites=true&w=majority';
+mongoose.connect(dbConfig)
+.then((result) => console.log('Connected to db'))
+.catch((err) => console.log(err));
 
 // Register view engine
 app.set('view engine', 'ejs');
@@ -13,17 +21,23 @@ app.use(express.static('public'));
 
 // Home page
 app.get('/', (req, res) => {
-    const blogs = [
-        {title: "Drake drops CLB", snippet: "lorem ipsum dolor sit amet consectectur"},
-        {title: "Kanye drops Donda", snippet: "lorem ipsum dolor sit amet consectectur"},
-        {title: "Kendrick drops a single", snippet: "lorem ipsum dolor sit amet consectectur"}
-    ];
-    res.render('index', { title: "Home", blogs: blogs });
+    res.redirect('/blogs')
 });
 
 // About page
 app.get('/about', (req, res) => {
     res.render('about', { title: "About" });
+});
+
+// All blogs route
+app.get('/blogs', (req, res) => {
+    Blog.find().sort( { createdAt: -1 })
+    .then((result) => {
+        res.render('index', { title: 'All Blogs', blogs: result })
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 });
 
 // Create a blog page
