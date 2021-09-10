@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const Blog = require('./models/blog')
+const blogRoutes = require('./routes/blogRoutes');
 
 // Connect to mongodb
 const dbConfig = 'mongodb+srv://galexwade:Basketball25@nodeblog.r4b7n.mongodb.net/nodeblog?retryWrites=true&w=majority';
 mongoose.connect(dbConfig)
-.then((result) => console.log('Connected to db'))
+.then((result) => console.log('Connected to database'))
 .catch((err) => console.log(err));
 
 // Register view engine
@@ -18,6 +18,13 @@ app.use(logger('dev'));
 
 // Middleware & Static files
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+// Logger middleware
+app.use(logger('dev'));
+app.use((req, res, next) => {
+  res.locals.path = req.path;
+  next();
+});
 
 // Home page
 app.get('/', (req, res) => {
@@ -29,21 +36,8 @@ app.get('/about', (req, res) => {
     res.render('about', { title: "About" });
 });
 
-// All blogs route
-app.get('/blogs', (req, res) => {
-    Blog.find().sort( { createdAt: -1 })
-    .then((result) => {
-        res.render('index', { title: 'All Blogs', blogs: result })
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-});
-
-// Create a blog page
-app.get('/blogs/create', (req, res) => {
-    res.render('create', { title: "Create a new blog" })
-})
+// blog routes
+app.use('/blogs', blogRoutes);
 
 // 404 page
 app.use((req, res) => {
